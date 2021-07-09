@@ -73,14 +73,14 @@ To view the results of the aruco marker launch file run in a new terminal:
 ```
 ![image](https://user-images.githubusercontent.com/78880630/125129383-3bfb6b80-e0b4-11eb-9539-661f272b1f4e.png)
 
-
+The aruco marker will create the transformation from the camera frame to the marker frame. This is where the static_transform_publisher will be useful. In the file [static_frame.launch]()
 ## Installation Problems and Solutions
 **Aubo_Driver**
 
 Make sure to run: 
 ```
-   Sudo apt-get install ros-kinetic-ros-controllers 
-   Sudo apt-get install ros-kinetic-controller-manager 
+   sudo apt-get install ros-kinetic-ros-controllers 
+   sudo apt-get install ros-kinetic-controller-manager 
 ```
 
 One error when trying to launch the Aubo_Driver was: 
