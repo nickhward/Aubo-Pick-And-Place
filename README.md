@@ -28,9 +28,34 @@ Make sure to run:
    Sudo apt-get install ros-kinetic-controller-manager 
 ```
 
-An error when trying to launch the Aubo_Driver was: 
+One error when trying to launch the Aubo_Driver was: 
 ```
    error while loading shared libraries: libmoveit_robot_trajectory.so.0.9.15: cannot openshared object file: No such file or directory
+```
+The above error means that some of the moveit libraries are not seen by the program. To fix this run the following commands in the terminal(make sure to run each command in order):
+
+```
+   cd /opt/ros/kinetic/lib 
+
+   sudo cp -r libmoveit_robot_trajectory.so.0.9.17 .. 
+
+   sudo cp -r libmoveit_robot_model.so.0.9.17 .. 
+
+   sudo cp -r libmoveit_robot_state.so.0.9.17 .. 
+
+   cd .. 
+
+   sudo mv libmoveit_robot_state.so.0.9.17 libmoveit_robot_state.so.0.9.15 
+
+   sudo mv libmoveit_robot_model.so.0.9.17 libmoveit_robot_model.so.0.9.15 
+
+   sudo mv libmoveit_robot_trajectory.so.0.9.17 libmoveit_robot_trajectory.so.0.9.15 
+
+   sudo cp -r libmoveit_robot_state.so.0.9.15 lib/ 
+
+   sudo cp -r libmoveit_robot_model.so.0.9.15 lib/ 
+
+   sudo cp -r libmoveit_robot_trajectory.so.0.9.15 lib/
 ```
 
 
