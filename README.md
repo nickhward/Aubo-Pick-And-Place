@@ -24,8 +24,8 @@ The links to where one can install each program are provided.
 
    - Make sure to run: 
 ```
-    Sudo apt-get install ros-kinetic-ros-controllers 
-    Sudo apt-get install ros-kinetic-controller-manager 
+      Sudo apt-get install ros-kinetic-ros-controllers 
+      Sudo apt-get install ros-kinetic-controller-manager 
 ```
 
 
