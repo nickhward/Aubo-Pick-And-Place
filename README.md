@@ -89,10 +89,10 @@ To find the transformation between the camera frame and robot frame type in the 
    rosrun tf tf_echo camera_rgb_optical_frame base_link_calculated
 ```
 
-Then create a node for static_Transform_publisher in the static_frame.launch file using the values provided by the tf_echo command (translation[x, y, z] and Quaternion[x, y, z, w]: 
+Then create a node for static_Transform_publisher in the static_frame.launch file using the values provided by the tf_echo command (translation[x, y, z] and Quaternion[x, y, z, w]): 
 
 ```
-   <node pkg="tf" type="static_transform_publisher" name="cam_broadcaster" args="   -0.504  0.279  0.313  0.739  -0.276  0.188  0.585  camera_rgb_optical_frame  base_link_calculated   100" /> 
+   <node pkg="tf" type="static_transform_publisher" name="cam_broadcaster" args="   x  y  z  x  y  z  w  camera_rgb_optical_frame  base_link_calculated   100" /> 
 ```
 
 ## Installation Problems and Solutions
