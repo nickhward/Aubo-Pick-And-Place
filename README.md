@@ -13,10 +13,54 @@ The links to where one can install each program are provided.
 - [YOLOv4](https://github.com/AlexeyAB/darknet)
 - [OpenCV](https://www.pyimagesearch.com/2016/10/24/ubuntu-16-04-how-to-install-opencv/) >= 3.4
 - [GPD](https://github.com/atenpas/gpd)
+- [gpd_ros](https://github.com/atenpas/gpd_ros)
 - [Moveit](https://moveit.ros.org/install/)
 - [PCL](https://www.programmersought.com/article/52981999118/) >= 1.7
 - [Aruco_Ros](https://github.com/pal-robotics/aruco_ros)
 - [Aubo_I5_Driver](https://github.com/AuboRobot/aubo_robot)
+
+## Hardware
+- Asus Xtion Pro RGB-D Camera
+- Aubo I5 Robot
+- Robotiq 85 Gripper
+
+## Running Pick and Place
+**Camera Calibration and Running Camera Drivers**
+
+Camera calibration is a very important step. Follow the steps on how to [calibrate](http://wiki.ros.org/camera_calibration/Tutorials/MonocularCalibration) a Monocular Camera with raw images over ROS(this is called Camera Intrisic Calibration). Once done with the tutorial provided on the ROS wiki, follow the [Depth Camera Calibration](https://jsk-docs.readthedocs.io/projects/jsk_recognition/en/latest/jsk_pcl_ros/calibration.html)
+
+When the camera calibration is finished we should have a depth error of at 1-2 cm between the the ros topic /camera_remote/depth_registered/points and /camera_remote_uncalibrated/depth_registered/points. The error can be visualized on rviz as such:
+
+![image](https://user-images.githubusercontent.com/78880630/125126576-297f3300-e0b0-11eb-8721-7775b3713bad.png)
+
+Open two terminals, in one terminal launch `roslaunch jsk_pcl_ros openni2_local.launch`, and in the other `roslaunch jsk_pcl_ros openni2_remote.launch`. This will run the Asus camera driver and load all the calibration files that were found in the camera calibration steps.
+
+**Running Aubo Driver**
+
+First make sure that the computer can connect to Aubo Robot. On the Aubo ipad, go to network settings->tap ifconfig:
+
+![image](https://user-images.githubusercontent.com/78880630/125127557-8c24fe80-e0b1-11eb-884d-46a92c90292d.png)
+
+In the image above insert the inet addr number as shown in the highlighted section into the space bellow Network debuging (this is the robots ip address). Then press ping and it will show 0% packet loss. 
+
+Run the next command in the terminal to see if you can connect via the robot ip (in my case the ip is 192.168.1.101 this number will be different for everybody):
+
+```
+ping 192.168.1.101
+```
+
+If it shows 0% packet loss in the terminal then the robot can be connected to via the robots ip.
+
+To connect to the real robot through moveit in the same terminal run:
+
+```
+roslaunch aubo_i5_moveit_config moveit_planning_execution.launch sim:=false robot_ip:=your-robot-ip 
+```
+
+Rviz will run with your robot model and the real robot will move just by dragging the endeffector arround and clicking Plan and execute in the Planning tab on Rviz.
+
+![image](https://user-images.githubusercontent.com/78880630/125128574-0904a800-e0b3-11eb-8511-b4a146b5b47b.png)
+
 
 
 ## Installation Problems and Solutions
@@ -57,5 +101,7 @@ The above error means that some of the moveit libraries are not seen by the prog
 
    sudo cp -r libmoveit_robot_trajectory.so.0.9.15 lib/
 ```
+
+
 
 
