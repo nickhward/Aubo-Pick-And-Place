@@ -73,7 +73,28 @@ To view the results of the aruco marker launch file run in a new terminal:
 ```
 ![image](https://user-images.githubusercontent.com/78880630/125129383-3bfb6b80-e0b4-11eb-9539-661f272b1f4e.png)
 
-The aruco marker will create the transformation from the camera frame to the marker frame. This is where the static_transform_publisher will be useful. In the file [static_frame.launch]()
+The aruco marker will create the transformation from the camera frame to the marker frame. This is where the static_transform_publisher will be useful. We can then find the transformation from the end effector frame to the base frame of the robot to get its position relative to the camera frame. To do this edit node with name="robot_base_broadcaster" in the file [static_frame.launch](https://github.com/nickhward/Aubo-Pick-And-Place/blob/main/static_frame.launch) and insert the the x y z rz ry rx where the numbers are in `args`. These values can be found directly from the teach pendant on the Aubo ipad. Then run the command in a new terminal: 
+
+```
+   roslaunch static_frame.launch
+```
+
+One can visualize the transformed frames in Rviz:
+
+![image](https://user-images.githubusercontent.com/78880630/125131514-c0032280-e0b7-11eb-93fd-9d01d8149027.png)
+
+To find the transformation between the camera frame and robot frame type in the a terminal:
+
+```
+   rosrun tf tf_echo camera_rgb_optical_frame base_link_calculated
+```
+
+Then create a node for static_Transform_publisher in the static_frame.launch file using the values provided by the tf_echo command (translation[x, y, z] and Quaternion[x, y, z, w]: 
+
+```
+   <node pkg="tf" type="static_transform_publisher" name="cam_broadcaster" args="   -0.504  0.279  0.313  0.739  -0.276  0.188  0.585  camera_rgb_optical_frame  base_link_calculated   100" /> 
+```
+
 ## Installation Problems and Solutions
 **Aubo_Driver**
 
