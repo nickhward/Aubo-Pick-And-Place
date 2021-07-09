@@ -21,6 +21,7 @@ The links to where one can install each program are provided.
 
 ## Installation Problems and Solutions
 - Aubo_Driver
+
    - Make sure to run: 
 ```
     Sudo apt-get install ros-kinetic-ros-controllers 
