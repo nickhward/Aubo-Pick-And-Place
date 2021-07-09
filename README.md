@@ -1,5 +1,7 @@
 # Aubo-Pick-And-Place
 
+A way to perform pick and place operations using deep learning algorithms GPD and YOLO. 
+
 
 ## Required Software and Dependencies
 
