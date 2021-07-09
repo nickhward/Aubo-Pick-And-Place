@@ -28,6 +28,7 @@ The links to where one can install each program are provided.
       Sudo apt-get install ros-kinetic-controller-manager 
 ```
 
-
+   - An error when trying to launch the Aubo_Driver was: 
+`error while loading shared libraries: libmoveit_robot_trajectory.so.0.9.15: cannot openshared object file: No such file or directory`
 
 
