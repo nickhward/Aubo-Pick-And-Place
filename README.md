@@ -150,9 +150,30 @@ Uncomment the line:
    set(CMAKE_CXX_FLAGS "-fopenmp -fPIC -Wno-deprecated -Wenum-compare -Wno-ignored-attributes -std=c++17")
 ```
 
-GPD_ROS can be 
+GPD_ROS can be ran using the command `roslaunch gpd_ros ur5.launch`, it will not work right away unfortunately.
 
+In the ur5.launch file change the cloud_type to the point cloud type that will be used. Then change the cloud_topic to the correct rostopic that is needed to be used. The config_file value needs to be changed from:
 
+```
+<param name="config_file" value="/home/ur5/projects/gpd/cfg/ros_vino_params.cfg" />
+```
+To:
+```
+<param name="config_file" value="/path/to/gpd/cfg/ros_eigen_params.cfg" />
+```
+
+The file ros_eigen_params.cfg is where most of the finctionality parameters are, such as setting the gripper dimensions, grasp workspaces, how many grasp samples are considered, etc. The only thing that needs to be changed in order for the launch file to work is the line:
+
+```
+weights_file = /home/andreas/projects/gpd/lenet/15channels/params/
+```
+
+To: 
+
+```
+weights_file = /path/to/gpd/lenet/15channels/params/
+```
+If GPD is running slow on producing grasps for you robot, I suggest lowering the parameter `num_samples = 500` to a number lower than 100 and change the parameter `workspace_graps = -1 1 -1 1 -1 1` to fit exactly the areas you need to grasp. 
 
 
 
