@@ -46,7 +46,7 @@ In the image above insert the inet addr number as shown in the highlighted secti
 Run the next command in the terminal to see if you can connect via the robot ip (in my case the ip is 192.168.1.101 this number will be different for everybody):
 
 ```
-ping 192.168.1.101
+   ping 192.168.1.101
 ```
 
 If it shows 0% packet loss in the terminal then the robot can be connected to via the robots ip.
@@ -54,13 +54,24 @@ If it shows 0% packet loss in the terminal then the robot can be connected to vi
 To connect to the real robot through moveit in the same terminal run:
 
 ```
-roslaunch aubo_i5_moveit_config moveit_planning_execution.launch sim:=false robot_ip:=your-robot-ip 
+   roslaunch aubo_i5_moveit_config moveit_planning_execution.launch sim:=false robot_ip:=your-robot-ip 
 ```
 
 Rviz will run with your robot model and the real robot will move just by dragging the endeffector arround and clicking Plan and execute in the Planning tab on Rviz.
 
 ![image](https://user-images.githubusercontent.com/78880630/125128574-0904a800-e0b3-11eb-8511-b4a146b5b47b.png)
 
+**Cordinate Frames and Transformations**
+
+ROS provides a very useful package to keep track of multple coordinate frames over time called [tf](http://wiki.ros.org/tf). To find the position of the robot base frame to the camera frame will be needed in order to have perform any grasping. To do this, Aruco Tags will be used. First you stick the aruco tag onto the end-effector of the robot. Have the tag visible to the camera and run in a terminal:
+```
+   roslaunch aruco_ros single.launch 
+```
+To view the results of the aruco marker launch file run in a new terminal:
+```
+   rosrun image_view image_view image:=/aruco_single/result
+```
+![image](https://user-images.githubusercontent.com/78880630/125129383-3bfb6b80-e0b4-11eb-9539-661f272b1f4e.png)
 
 
 ## Installation Problems and Solutions
