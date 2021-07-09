@@ -95,7 +95,7 @@ Then create a node for static_Transform_publisher in the static_frame.launch fil
    <node pkg="tf" type="static_transform_publisher" name="cam_broadcaster" args="   x  y  z  x  y  z  w  camera_rgb_optical_frame  base_link_calculated   100" /> 
 ```
 
-## Installation Problems and Solutions
+## Installation Setups, Problems, and Solutions
 **Aubo_Driver**
 
 Make sure to run: 
@@ -133,6 +133,35 @@ The above error means that some of the moveit libraries are not seen by the prog
 
    sudo cp -r libmoveit_robot_trajectory.so.0.9.15 lib/
 ```
+
+
+**GPD and gpd_ros**
+
+GPD needs to be installed becuase it is needed for gpd_ros as a library. Gpd_ros is just a ros wrapper for GPD. 
+When installing GPD in order to successfully make the project, go to the CMakeList.txt file and comment out the line:
+
+```
+   set(CMAKE_CXX_FLAGS "-O3 -march=native -mtune=intel -msse4.2 -mavx2 -mfma -flto -fopenmp -fPIC -Wno-deprecated -Wenum-compare -Wno-ignored-attributes -std=c++17")
+```
+
+Uncomment the line:
+
+```
+   set(CMAKE_CXX_FLAGS "-fopenmp -fPIC -Wno-deprecated -Wenum-compare -Wno-ignored-attributes -std=c++17")
+```
+
+GPD_ROS can be 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
