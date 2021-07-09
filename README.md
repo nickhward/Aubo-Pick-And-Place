@@ -22,13 +22,13 @@ The links to where one can install each program are provided.
 ## Installation Problems and Solutions
 - Aubo_Driver
 
-   - Make sure to run: 
+   Make sure to run: 
 ```
       Sudo apt-get install ros-kinetic-ros-controllers 
       Sudo apt-get install ros-kinetic-controller-manager 
 ```
 
-- An error when trying to launch the Aubo_Driver was: 
+   An error when trying to launch the Aubo_Driver was: 
 ```
 error while loading shared libraries: libmoveit_robot_trajectory.so.0.9.15: cannot openshared object file: No such file or directory
 ```
