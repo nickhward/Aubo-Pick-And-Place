@@ -15,6 +15,13 @@ The links to where one can install each program are provided.
 - [GPD](https://github.com/atenpas/gpd)
 - [Moveit](https://moveit.ros.org/install/)
 - [PCL](https://www.programmersought.com/article/52981999118/) >= 1.7
+- [Aruco_Ros](https://github.com/pal-robotics/aruco_ros)
+- [Aubo_I5_Driver](https://github.com/AuboRobot/aubo_robot)
+
+
+##Installation Problems and Solutions
+
+
 
 
 
