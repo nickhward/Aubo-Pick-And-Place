@@ -23,8 +23,48 @@ The links to where one can install each program are provided.
 - Asus Xtion Pro RGB-D Camera
 - Aubo I5 Robot
 - Robotiq 85 Gripper
+## Running the Programs
 
-## Running Pick and Place
+1. Run the camera calibrated launch files in seperate terminals
+
+```
+   roslaunch jsk_pcl_ros openni2_local.launch
+   roslaunch jsk_pcl_ros openni2_remote.launch
+```
+
+2. In a new terminal run object detection through darknet_ros by command:
+
+```
+roslaunch darknet_ros darknet_ros.launch
+```
+
+3. In a new terminal run the program to filter out all point cloud data except the object that was chosen:
+
+```
+rosrun my_aubo_i5_robot_config pass_through
+```
+
+4. To find the transformation of the Aubo Robot base link with respect to the camera frame run:
+
+```
+roslaunch static_frame.launch
+```
+
+5. Launch the Aubo Driver in a new terminal:
+
+```
+roslaunch aubo_i5_moveit_config moveit_planning_execution.launch sim:=false robot_ip:=your-robot-ip 
+```
+
+6. Grasp the object by running in a new terminal:
+
+```
+rosrun my_aubo_i5_robot_config pick_place
+```
+
+
+
+## Inner Workings of the Algorithm
 **Camera Calibration and Running Camera Drivers**
 
 Camera calibration is a very important step. Follow the steps on how to [calibrate](http://wiki.ros.org/camera_calibration/Tutorials/MonocularCalibration) a Monocular Camera with raw images over ROS(this is called Camera Intrisic Calibration). Once done with the tutorial provided on the ROS wiki, follow the [Depth Camera Calibration](https://jsk-docs.readthedocs.io/projects/jsk_recognition/en/latest/jsk_pcl_ros/calibration.html)
