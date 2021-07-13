@@ -10,7 +10,7 @@ The links to where one can install each program are provided.
 - Ubuntu 16.04
 - [ROS Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu)
 - Python 2.7
-- [YOLOv4](https://github.com/AlexeyAB/darknet)
+- [Darknet_ros](https://github.com/leggedrobotics/darknet_ros) -V: YOLOv4
 - [OpenCV](https://www.pyimagesearch.com/2016/10/24/ubuntu-16-04-how-to-install-opencv/) >= 3.4
 - [GPD](https://github.com/atenpas/gpd)
 - [gpd_ros](https://github.com/atenpas/gpd_ros)
@@ -94,6 +94,14 @@ Then create a node for static_Transform_publisher in the static_frame.launch fil
 ```
    <node pkg="tf" type="static_transform_publisher" name="cam_broadcaster" args="   x  y  z  x  y  z  w  camera_rgb_optical_frame  base_link_calculated   100" /> 
 ```
+
+**Cloud Clustering and Centroids**
+
+The .cpp file pass_through.cpp filters out the point cloud. It used a voxel filter, a statistical filter, and a filter to get rid of the table top. Then inorder to only obtain the objects I used a fucntion called Euclidean Cluster Extraction. This 
+
+![image](https://user-images.githubusercontent.com/78880630/125386289-df68ac80-e350-11eb-8eb8-923affaac243.png)
+![image](https://user-images.githubusercontent.com/78880630/125386309-e7c0e780-e350-11eb-866c-573925a464a0.png)
+
 
 ## Installation Setups, Problems, and Solutions
 **Aubo_Driver**
