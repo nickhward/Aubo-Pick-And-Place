@@ -107,12 +107,32 @@ To run the point cloud clustering and object selection; in a new terminal run:
    rosrun my_aubo_i5_robot_config pass_through
 ```
 
-This will allow you to enter the object name you want to cluster. To visualize the point cloud in rviz, add the topic /point_cloud_filtered.
-
+This will allow you to enter the object name you want to cluster. To visualize the point cloud in rviz, add the topic /output_cloud_filtered. You should see something similar to the images bellow.
 
 ![image](https://user-images.githubusercontent.com/78880630/125386289-df68ac80-e350-11eb-8eb8-923affaac243.png)
 ![image](https://user-images.githubusercontent.com/78880630/125386309-e7c0e780-e350-11eb-866c-573925a464a0.png)
 
+**GPD_ROS**
+
+We will be inserting the point cloud that is being published from pass_through.cpp.
+
+Run in a new terminal:
+
+```
+   roslaunch gpd_ros ur5.launch
+```
+
+This will generate the best grasps on the selected object. 
+
+**Picking Up Object**
+
+With the Aubo Driver running from the command `roslaunch my_aubo_i5_robot_config moveit_planning_execution.launch robot_ip:=<your_robot_ip>` in a new terminal run:
+
+```
+rosrun my_aubo_i5_robot_config pick_place
+```
+
+The real robot will then try to go to the grasp pose by finding ik solutions. If it says failed-No IK_solutions found just restart pick_place until it works. If you have tried to restart it more than five times you may just have an unreachable grasp for your robot and will have to find another grasp that is reachable. 
 
 ## Installation Setups, Problems, and Solutions
 **Aubo_Driver**
