@@ -252,6 +252,22 @@ The above error means that some of the moveit libraries are not seen by the prog
    sudo cp -r libmoveit_robot_trajectory.so.0.9.15 lib/
 ```
 
+**Darknet_ros**
+
+In order to run git clone <url-to-darknet-ros> you have to create a ssh key for your GitHub account otherwise you will get an error saying you do not have permission to download the repository.
+   
+I had a little trouble figuring out how to set up the ssh key so here were my steps:
+
+```
+   ssh-keygen
+```
+Press ENTER to save the key to the default location. Should be at /.ssh/id_rsa.pub. Enter a password or not up to you and then press ENTER again. This should set up the key in the default location. To view the key run:
+   
+```
+   cat .ssh/id_rsa.pub   
+```
+
+Copy the generated key then go to your GitHub profile. Then follow the links: `Settings -> SSH and GPG keys`
 
 **GPD and gpd_ros**
 
