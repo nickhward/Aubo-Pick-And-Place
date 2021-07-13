@@ -23,7 +23,7 @@ The links to where one can install each program are provided.
 - Asus Xtion Pro RGB-D Camera
 - Aubo I5 Robot
 - Robotiq 85 Gripper
-## Running the Programs
+## Running the Programs to Pick Up Object
 
 1. Run the camera calibrated launch files in seperate terminals
 
