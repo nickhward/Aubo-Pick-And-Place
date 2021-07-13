@@ -134,6 +134,11 @@ Then create a node for static_Transform_publisher in the static_frame.launch fil
 ```
    <node pkg="tf" type="static_transform_publisher" name="cam_broadcaster" args="   x  y  z  x  y  z  w  camera_rgb_optical_frame  base_link_calculated   100" /> 
 ```
+**Object Detection State of the Art (YOLOv4)**
+
+YOLOv4 will allow the computer to determine what objects are in the point cloud. Darknet Ros is a convenient way to get bounding boxes that are published on as a rostopic. Subscribing to the topic will allow easy access to continous bounding boxes even if the object is moved. To run YOLOv4 with ros it will be done by running in a terminal the command:
+
+```roslaunch darknet_ros darknet_ros.launch```
 
 **Cloud Clustering and Centroids**
 
