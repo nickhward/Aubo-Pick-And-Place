@@ -142,6 +142,9 @@ YOLOv4 will allow the computer to determine what objects are in the point cloud.
 
 A new window will pop up with bounding boxes around the object YOLO has been trained on. A full guide on how to train you own custom weights can be found at [this](https://github.com/AlexeyAB/darknet) GitHub repository.
 
+![image](https://user-images.githubusercontent.com/78880630/125510588-a582ca17-3d54-4ed1-a3a4-95642fde5960.png)
+
+
 
 **Cloud Clustering and Centroids**
 
@@ -188,6 +191,29 @@ With the Aubo Driver running from the command `roslaunch my_aubo_i5_robot_config
 The real robot will then try to go to the grasp pose by finding ik solutions. If it says failed-No IK_solutions found just restart [pick_place](https://github.com/nickhward/Aubo-Pick-And-Place/blob/main/pick_place.cpp) until it works. If you have tried to restart it more than five times you may just have an unreachable grasp for your robot and will have to find another grasp that is reachable. 
 
 ## Installation Possible Problems and their Solutions
+
+**Camera Calibration**
+
+In order to get the ROS driver for the Asus Xtion Camera run the two commands:
+
+```
+   sudo apt-get install ros-kinetic-openni-launch
+   sudo apt-get install ros-kinetic-openni2-launch
+```
+
+So that openni can see the Asus camera; unncomment the line `UsbInterface = 2` in the file Globaldefault.ini this file cannot be editted by clicking on the file, you will need to run with root privileges:
+
+```
+   sudo nano /etc/openi/Globaldefault.ini
+```
+
+To connect to the camera run command: 
+
+```
+roslaunch openni2_launch openni2.launch
+```
+
+
 **Aubo_Driver**
 
 Make sure to run: 
@@ -241,6 +267,8 @@ Uncomment the line:
 ```
    set(CMAKE_CXX_FLAGS "-fopenmp -fPIC -Wno-deprecated -Wenum-compare -Wno-ignored-attributes -std=c++17")
 ```
+
+When making GPD I suggest having pcl version 1.9 installed from source. If done correctly, the CMakeList.txt will find your version of PCL. In the GPD CMakeList.txt I changed the line `find_package(PCL 1.8 REQUIRED)` -> `find_package(PCL 1.9 REQUIRED)`. A common error I got was that the CMakeList couldn't find the `PCLConfig.cmake` file. This can be fixed by added the following line above the find_package line that was just changed: `set(PCL_DIR "/path/to/PCL/1.9.1/build/PCLConfig.cmake)`. You may have to do the same thing with the opencv installation as sometimes the CMakeList will not be able to find the OpenCvConfig.cmake file. This can be fixed by using the same function as used for pcl: `set(OpenCV_DIR "/path/to/opencv/build/OpenCVConfig.cmake")`.
 
 GPD_ROS can be ran using the command `roslaunch gpd_ros ur5.launch`, it will not work right away unfortunately.
 
