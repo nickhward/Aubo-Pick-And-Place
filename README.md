@@ -35,31 +35,31 @@ The links to where one can install each program are provided.
 2. In a new terminal run object detection through darknet_ros by command:
 
 ```
-roslaunch darknet_ros darknet_ros.launch
+   roslaunch darknet_ros darknet_ros.launch
 ```
 
 3. In a new terminal run the program to filter out all point cloud data except the object that was chosen:
 
 ```
-rosrun my_aubo_i5_robot_config pass_through
+   rosrun my_aubo_i5_robot_config pass_through
 ```
 
 4. To find the transformation of the Aubo Robot base link with respect to the camera frame run:
 
 ```
-roslaunch static_frame.launch
+   roslaunch static_frame.launch
 ```
 
 5. Launch the Aubo Driver in a new terminal:
 
 ```
-roslaunch aubo_i5_moveit_config moveit_planning_execution.launch sim:=false robot_ip:=your-robot-ip 
+   roslaunch aubo_i5_moveit_config moveit_planning_execution.launch sim:=false robot_ip:=your-robot-ip 
 ```
 
 6. Grasp the object by running in a new terminal:
 
 ```
-rosrun my_aubo_i5_robot_config pick_place
+   rosrun my_aubo_i5_robot_config pick_place
 ```
 
 
@@ -169,7 +169,7 @@ This will generate the best grasps on the selected object.
 With the Aubo Driver running from the command `roslaunch my_aubo_i5_robot_config moveit_planning_execution.launch robot_ip:=<your_robot_ip>` in a new terminal run:
 
 ```
-rosrun my_aubo_i5_robot_config pick_place
+   rosrun my_aubo_i5_robot_config pick_place
 ```
 
 The real robot will then try to go to the grasp pose by finding ik solutions. If it says failed-No IK_solutions found just restart pick_place until it works. If you have tried to restart it more than five times you may just have an unreachable grasp for your robot and will have to find another grasp that is reachable. 
@@ -234,7 +234,7 @@ GPD_ROS can be ran using the command `roslaunch gpd_ros ur5.launch`, it will not
 In the ur5.launch file change the cloud_type to the point cloud type that will be used. Then change the cloud_topic to the correct rostopic that is needed to be used. The config_file value needs to be changed from:
 
 ```
-<param name="config_file" value="/home/ur5/projects/gpd/cfg/ros_vino_params.cfg" />
+   <param name="config_file" value="/home/ur5/projects/gpd/cfg/ros_vino_params.cfg" />
 ```
 To:
 ```
@@ -244,13 +244,13 @@ To:
 The file ros_eigen_params.cfg is where most of the finctionality parameters are, such as setting the gripper dimensions, grasp workspaces, how many grasp samples are considered, etc. The only thing that needs to be changed in order for the launch file to work is the line:
 
 ```
-weights_file = /home/andreas/projects/gpd/lenet/15channels/params/
+   weights_file = /home/andreas/projects/gpd/lenet/15channels/params/
 ```
 
 To: 
 
 ```
-weights_file = /path/to/gpd/lenet/15channels/params/
+   weights_file = /path/to/gpd/lenet/15channels/params/
 ```
 If GPD is running slow on producing grasps for you robot, I suggest lowering the parameter `num_samples = 500` to a number lower than 100 and change the parameter `workspace_graps = -1 1 -1 1 -1 1` to fit exactly the areas you need to grasp. 
 
