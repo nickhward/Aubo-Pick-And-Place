@@ -162,7 +162,12 @@ Run in a new terminal:
    roslaunch gpd_ros ur5.launch
 ```
 
-This will generate the best grasps on the selected object. 
+This will generate the best grasps on the selected object like in the image bellow.
+
+![image](https://user-images.githubusercontent.com/78880630/125398043-a423a900-e363-11eb-9593-567a4f27458a.png)
+
+
+
 
 **Picking Up Object**
 
