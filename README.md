@@ -140,6 +140,9 @@ YOLOv4 will allow the computer to determine what objects are in the point cloud.
 
 ```roslaunch darknet_ros darknet_ros.launch```
 
+A new window will pop up with bounding boxes around the object YOLO has been trained on. A full guide on how to train you own custom weights can be found at [this](https://github.com/AlexeyAB/darknet) GitHub repository.
+
+
 **Cloud Clustering and Centroids**
 
 The .cpp file pass_through.cpp filters out the point cloud. It used a voxel filter, a statistical filter, and a filter to get rid of the table top. Then inorder to only obtain the objects I used a function called Euclidean Cluster Extraction. This will cluster each object, and we can compute the 3D centroid, then convert the centroid into 2D. The 2D Centroid will be compared to the center point of the bounding box from the rostopic(/darknet_ros/bounding_boxes). The object that was selected will have the shortest euclidean between the bounding box and the 2D centroid. 
