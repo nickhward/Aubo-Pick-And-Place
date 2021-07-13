@@ -145,7 +145,7 @@ A new window will pop up with bounding boxes around the object YOLO has been tra
 
 **Cloud Clustering and Centroids**
 
-The .cpp file pass_through.cpp filters out the point cloud. It used a voxel filter, a statistical filter, and a filter to get rid of the table top. Then inorder to only obtain the objects I used a function called Euclidean Cluster Extraction. This will cluster each object, and we can compute the 3D centroid, then convert the centroid into 2D. The 2D Centroid will be compared to the center point of the bounding box from the rostopic(/darknet_ros/bounding_boxes). The object that was selected will have the shortest euclidean between the bounding box and the 2D centroid. 
+The .cpp file [pass_through.cpp](https://github.com/nickhward/Aubo-Pick-And-Place/blob/main/pass_through.cpp) filters out the point cloud. It used a voxel filter, a statistical filter, and a filter to get rid of the table top. Then inorder to only obtain the objects I used a function called Euclidean Cluster Extraction. This will cluster each object, and we can compute the 3D centroid, then convert the centroid into 2D. The 2D Centroid will be compared to the center point of the bounding box from the rostopic(/darknet_ros/bounding_boxes). The object that was selected will have the shortest euclidean between the bounding box and the 2D centroid. 
 
 ![image](https://user-images.githubusercontent.com/78880630/125390026-03c78780-e357-11eb-9b8b-d30ff195a686.png)
 
@@ -185,7 +185,7 @@ With the Aubo Driver running from the command `roslaunch my_aubo_i5_robot_config
    rosrun my_aubo_i5_robot_config pick_place
 ```
 
-The real robot will then try to go to the grasp pose by finding ik solutions. If it says failed-No IK_solutions found just restart pick_place until it works. If you have tried to restart it more than five times you may just have an unreachable grasp for your robot and will have to find another grasp that is reachable. 
+The real robot will then try to go to the grasp pose by finding ik solutions. If it says failed-No IK_solutions found just restart [pick_place](https://github.com/nickhward/Aubo-Pick-And-Place/blob/main/pick_place.cpp) until it works. If you have tried to restart it more than five times you may just have an unreachable grasp for your robot and will have to find another grasp that is reachable. 
 
 ## Installation Possible Problems and their Solutions
 **Aubo_Driver**
