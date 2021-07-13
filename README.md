@@ -97,7 +97,18 @@ Then create a node for static_Transform_publisher in the static_frame.launch fil
 
 **Cloud Clustering and Centroids**
 
-The .cpp file pass_through.cpp filters out the point cloud. It used a voxel filter, a statistical filter, and a filter to get rid of the table top. Then inorder to only obtain the objects I used a fucntion called Euclidean Cluster Extraction. This 
+The .cpp file pass_through.cpp filters out the point cloud. It used a voxel filter, a statistical filter, and a filter to get rid of the table top. Then inorder to only obtain the objects I used a function called Euclidean Cluster Extraction. This will cluster each object, and we can compute the 3D centroid, then convert the centroid into 2D. The 2D Centroid will be compared to the center point of the bounding box from the rostopic(/darknet_ros/bounding_boxes). The object that was selected will have the shortest euclidean between the bounding box and the 2D centroid. 
+
+![image](https://user-images.githubusercontent.com/78880630/125390026-03c78780-e357-11eb-9b8b-d30ff195a686.png)
+
+To run the point cloud clustering and object selection; in a new terminal run:
+
+```
+   rosrun my_aubo_i5_robot_config pass_through
+```
+
+This will allow you to enter the object name you want to cluster. To visualize the point cloud in rviz, add the topic /point_cloud_filtered.
+
 
 ![image](https://user-images.githubusercontent.com/78880630/125386289-df68ac80-e350-11eb-8eb8-923affaac243.png)
 ![image](https://user-images.githubusercontent.com/78880630/125386309-e7c0e780-e350-11eb-866c-573925a464a0.png)
