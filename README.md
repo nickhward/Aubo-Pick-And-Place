@@ -296,7 +296,22 @@ If training a model on custom object is necessary follow [this](https://github.c
    
 This will create a test.txt file with 10% of the images and 90% of the images will be put into a train.txt file. This should fix the error with opencv and also save you a lot of time of copying and pasting hundreds of paths in the train.txt and test.txt files. 
    
-Training will take a very long time to run if done with CPU only. This is why training on GPU is pretty much a requirement. To do this I downloaded CUDA 10.2 and Cudnn 7.6.5. The downloading is a little tricky and a tutorial can be found [here](https://medium.com/@chami.soufiane/installation-guide-for-cuda-10-x-on-ubuntu-16-04-18-04-20-04-3a826a110ff5). 
+Training will take a very long time to run if done with CPU only. This is why training on GPU is pretty much a requirement. To do this I downloaded CUDA 10.2 and Cudnn 7.6.5. The downloading is a little tricky and a tutorial can be found [here](https://medium.com/@chami.soufiane/installation-guide-for-cuda-10-x-on-ubuntu-16-04-18-04-20-04-3a826a110ff5). The only issue that I ran into when installing CUDA was when trying to run `make` in the directory /cuddn_samples_v7/mnistCUDNN I recieved the error: 
+
+```
+/usr/local/cuda/include/cuda_runtime_api.h:0110:60: error: 'pGraphExec' was not declared in this scope extern __host__ cudaError_t CUDARTAPI cudaGraphInstantiate{cudaGraphExec_t *pGrapheExec, cudaGraph_t graph, cudaGraphNode_t *pErrorNode, char *pLogBuffer...  
+   
+/usr/local/cuda/include/cuda_runtime_api.h:0110:60: error: 'CudaGraph_t' was not declared in this scope extern __host__ cudaError_t CUDARTAPI cudaGraphInstantiate{cudaGraphExec_t *pGrapheExec, cudaGraph_t graph, cudaGraphNode_t *pErrorNode, char *pLogBuffer...  
+   
+/usr/local/cuda/include/cuda_runtime_api.h:0110:60: error: 'CudaGraphNode_t' was not declared in this scope extern __host__ cudaError_t CUDARTAPI cudaGraphInstantiate{cudaGraphExec_t *pGrapheExec, cudaGraph_t graph, cudaGraphNode_t *pErrorNode, char *pLogBuffer...  
+```
+To fix this error open cudnn.h file that should be located in path /usr/include/cudnn.h. To edit run command:
+```
+sudo gedit /usr/include/cudnn.h   
+```
+   
+Then change the line `#include "driver_types.h"` to `#include <driver_types.h>`. Now make should run fine. 
+   
    
 You may run into an issue of opencv being to low as python 2.7 is most likely being used. For example it was showing opencv-dev 3.34. I installed opencv from source, then in order for python 2.7 to see the correct version of opencv I had to run the command:
    
