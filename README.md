@@ -99,7 +99,8 @@ To connect to the real robot through moveit in the same terminal run:
 
 Rviz will run with your robot model and the real robot will move just by dragging the endeffector arround and clicking Plan and execute in the Planning tab on Rviz.
 
-![image](https://user-images.githubusercontent.com/78880630/125128574-0904a800-e0b3-11eb-8511-b4a146b5b47b.png)
+![Peek 2021-07-13 22-37](https://user-images.githubusercontent.com/78880630/125568713-05430a92-9ec1-48dd-8b41-50b79185bea3.gif)
+
 
 **Cordinate Frames and Transformations**
 
@@ -251,6 +252,8 @@ The above error means that some of the moveit libraries are not seen by the prog
 
    sudo cp -r libmoveit_robot_trajectory.so.0.9.15 lib/
 ```
+
+
 
 **Darknet_ros**
 
