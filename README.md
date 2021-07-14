@@ -286,7 +286,7 @@ Training will take a very long time to run if done with CPU only. This is why tr
 You may run into an issue of opencv being to low as python 2.7 is most likely being used. For example it was showing opencv-dev 3.34. I installed opencv from source, then in order for python 2.7 to see the correct version of opencv I had to run the command:
    
 ```
-sudo cp /home/nicholas/opencv-4.5.2/build/lib/cv2.so /opt/ros/kinetic/lib/python2.7/dist-packages/   
+   sudo cp /home/nicholas/opencv-4.5.2/build/lib/cv2.so /opt/ros/kinetic/lib/python2.7/dist-packages/   
 ```
    
 
@@ -317,7 +317,7 @@ In the ur5.launch file change the cloud_type to the point cloud type that will b
 ```
 To:
 ```
-<param name="config_file" value="/path/to/gpd/cfg/ros_eigen_params.cfg" />
+   <param name="config_file" value="/path/to/gpd/cfg/ros_eigen_params.cfg" />
 ```
 
 The file ros_eigen_params.cfg is where most of the finctionality parameters are, such as setting the gripper dimensions, grasp workspaces, how many grasp samples are considered, etc. The only thing that needs to be changed in order for the launch file to work is the line:
