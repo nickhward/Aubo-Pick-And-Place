@@ -271,7 +271,25 @@ Press ENTER to save the key to the default location. Should be at /.ssh/id_rsa.p
 ```
 
 Copy the generated key then go to your GitHub profile. Then follow the links: `Settings -> SSH and GPG keys`
+   
+If training a model on custom object is necessary follow [this](https://github.com/AlexeyAB/darknet) guide. I ran into an issue where opencv couldn't find my images. To fix this, I ran the program [preprocess.py](https://github.com/nickhward/Aubo-Pick-And-Place/blob/main/preprocess.py) with the command:
+   
+```
+   python preprocess.py   
+```
+   
+This will create a test.txt file with 10% of the images and 90% of the images will be put into a train.txt file. This should fix the error with opencv and also save you a lot of time of copying and pasting hundreds of paths in the train.txt and test.txt files. 
+   
+Training will take a very long time to run if done with CPU only. This is why training on GPU is pretty much a requirement. To do this I downloaded CUDA 10.2 and Cudnn 7.6.5. The downloading is a little tricky and a tutorial can be found [here](https://medium.com/@chami.soufiane/installation-guide-for-cuda-10-x-on-ubuntu-16-04-18-04-20-04-3a826a110ff5). 
+   
+You may run into an issue of opencv being to low as python 2.7 is most likely being used. For example it was showing opencv-dev 3.34. I installed opencv from source, then in order for python 2.7 to see the correct version of opencv I had to run the command:
+   
+```
+sudo cp /home/nicholas/opencv-4.5.2/build/lib/cv2.so /opt/ros/kinetic/lib/python2.7/dist-packages/   
+```
+   
 
+   
 **GPD and gpd_ros**
 
 GPD needs to be installed becuase it is needed for gpd_ros as a library. Gpd_ros is just a ros wrapper for GPD. 
