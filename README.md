@@ -211,7 +211,7 @@ So that openni can see the Asus camera; unncomment the line `UsbInterface = 2` i
 To connect to the camera run command: 
 
 ```
-roslaunch openni2_launch openni2.launch
+   roslaunch openni2_launch openni2.launch
 ```
 
 
@@ -253,6 +253,7 @@ The above error means that some of the moveit libraries are not seen by the prog
    sudo cp -r libmoveit_robot_trajectory.so.0.9.15 lib/
 ```
 
+If you have a different robot from the Aubo Robot used in this repository I suggest looking at the moveit [setup assistant](http://docs.ros.org/en/kinetic/api/moveit_tutorials/html/doc/setup_assistant/setup_assistant_tutorial.html). Here you just enter your robots urdf and follow the instructions, and then you can run the exact same steps but with a different robot arm. 
 
 
 **Darknet_ros**
