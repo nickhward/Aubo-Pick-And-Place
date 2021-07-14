@@ -191,6 +191,19 @@ With the Aubo Driver running from the command `roslaunch my_aubo_i5_robot_config
 
 The real robot will then try to go to the grasp pose by finding ik solutions. If it says failed-No IK_solutions found just restart [pick_place](https://github.com/nickhward/Aubo-Pick-And-Place/blob/main/pick_place.cpp) until it works. If you have tried to restart it more than five times you may just have an unreachable grasp for your robot and will have to find another grasp that is reachable. 
 
+An error with the robot controller may occur that says:
+
+```
+   [ERROR] [1415027195.809289492]: Controller is taking too long to execute trajectory (the expected upper bound for the trajectory execution was 4.992567 seconds). Stopping trajectory.
+```
+
+To fix this issue go into the file [trajectory_execution.launch](https://github.com/nickhward/Aubo-Pick-And-Place/blob/main/my_aubo_i5_robot_config/launch/trajectory_execution.launch.xml). Here, change `value="1.2"`  ->  `value="3"` in the parameter:
+
+```
+   <param name="trajectory_execution/allowed_execution_duration_scaling" value="1.2"/>
+```
+Keep increasing the value until the error doesn't occur and the robot motion will be smoother as well.
+
 ## Installation Possible Problems and their Solutions
 
 **Camera Calibration**
