@@ -62,6 +62,8 @@ The links to where one can install each program are provided.
    rosrun my_aubo_i5_robot_config pick_place
 ```
 
+![pick2](https://user-images.githubusercontent.com/78880630/125694867-f153927d-6672-42a0-9591-4ce820e527cf.gif)
+![place](https://user-images.githubusercontent.com/78880630/125694890-14baef22-255f-42cc-8c95-e2435596bff6.gif)
 
 
 ## Inner Workings of the Algorithm
