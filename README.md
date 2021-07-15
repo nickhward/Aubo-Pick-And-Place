@@ -69,9 +69,9 @@ The links to where one can install each program are provided.
 ## Inner Workings of the Algorithm
 **Camera Calibration and Running Camera Drivers**
 
-Camera calibration is a very important step. Follow the steps on how to [calibrate](http://wiki.ros.org/camera_calibration/Tutorials/MonocularCalibration) a Monocular Camera with raw images over ROS(this is called Camera Intrisic Calibration). Once done with the tutorial provided on the ROS wiki, follow the [Depth Camera Calibration](https://jsk-docs.readthedocs.io/projects/jsk_recognition/en/latest/jsk_pcl_ros/calibration.html)
+Camera calibration is a very important step. Follow the steps on how to [calibrate](http://wiki.ros.org/camera_calibration/Tutorials/MonocularCalibration) a Monocular Camera with raw images over ROS(this is called Camera Intrisic Calibration). Once done with the tutorial provided on the ROS wiki, follow the [Depth Camera Calibration](https://jsk-docs.readthedocs.io/projects/jsk_recognition/en/latest/jsk_pcl_ros/calibration.html) tutorial.
 
-When the camera calibration is finished we should have a depth error of at 1-2 cm between the the ros topic /camera_remote/depth_registered/points and /camera_remote_uncalibrated/depth_registered/points. The error can be visualized on rviz as such:
+When the camera calibration is finished we should have a depth error of at 1-2 cm between the the ros topics /camera_remote/depth_registered/points and /camera_remote_uncalibrated/depth_registered/points. The error can be visualized on rviz as such:
 
 ![image](https://user-images.githubusercontent.com/78880630/125126576-297f3300-e0b0-11eb-8721-7775b3713bad.png)
 
