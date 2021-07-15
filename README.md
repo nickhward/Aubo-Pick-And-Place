@@ -79,7 +79,7 @@ Open two terminals, in one terminal launch `roslaunch jsk_pcl_ros openni2_local.
 
 **Running Aubo Driver**
 
-First make sure that the computer can connect to Aubo Robot. On the Aubo ipad, go to network settings->tap ifconfig:
+First make sure that the computer can connect to Aubo Robot. To do this go onto the Aubo ipad, go to network settings->tap ifconfig:
 
 ![image](https://user-images.githubusercontent.com/78880630/125127557-8c24fe80-e0b1-11eb-884d-46a92c90292d.png)
 
