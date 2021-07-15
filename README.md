@@ -85,7 +85,7 @@ First make sure that the computer can connect to Aubo Robot. To do this go onto 
 
 In the image above insert the inet addr number as shown in the highlighted section into the space bellow Network debuging (this is the robots ip address). Then press ping and it will show 0% packet loss. 
 
-Run the next command in the terminal to see if you can connect via the robot ip (in my case the ip is 192.168.1.101 this number will be different for everybody):
+Run the next command in the terminal to see if you can connect via the robot ip (in my case the ip is 192.168.1.101; this number will be different for everybody):
 
 ```
    ping 192.168.1.101
