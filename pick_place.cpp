@@ -64,7 +64,7 @@ void pick(moveit::planning_interface::MoveGroupInterface& move_group)
 
   // Setting grasp pose
   // ++++++++++++++++++++++
-  
+  //Your grasp pose relative to the base link frame
   grasps[0].grasp_pose.header.frame_id = "base_link";
   //tf2::Quaternion orientation;
   tf2::Quaternion orientation;
@@ -81,14 +81,15 @@ void pick(moveit::planning_interface::MoveGroupInterface& move_group)
   /* Defined with respect to frame_id */
   grasps[0].pre_grasp_approach.direction.header.frame_id = "base_link";
   /* Direction is set as positive x axis */
+ //determines the angle that the robot will be approach the object
   grasps[0].pre_grasp_approach.direction.vector.z = -1.0;
   //grasps[0].pre_grasp_approach.direction.vector.y = 1.0;
   //grasps[0].pre_grasp_approach.direction.vector.x = -1.0;
-
+ //the pre_grasp_approach is required to be at least 0.10. Otherwise you will run into a lot of IK failed errors. 
   //grasps[0].pre_grasp_approach.min_distance = 0.20;
   grasps[0].pre_grasp_approach.desired_distance = 0.10;
 
-
+ 
 
   // Set support surface as table1.
   move_group.setSupportSurfaceName("table1");
@@ -201,7 +202,7 @@ int main(int argc, char** argv)
   moveit::planning_interface::PlanningSceneInterface planning_scene_interface;
   moveit::planning_interface::MoveGroupInterface group("aubo_arm");
   group.setPlanningTime(45.0);
-
+ //If you want to add objects into the mix as collisions. 
   //addCollisionObjects(planning_scene_interface);
 
   // Wait a bit for ROS things to initialize
