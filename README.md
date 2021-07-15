@@ -126,7 +126,7 @@ One can visualize the transformed frames in Rviz:
 
 ![image](https://user-images.githubusercontent.com/78880630/125131514-c0032280-e0b7-11eb-93fd-9d01d8149027.png)
 
-To find the transformation between the camera frame and robot frame type in the a terminal:
+To find the transformation between the camera frame and robot base frame type in the a terminal:
 
 ```
    rosrun tf tf_echo camera_rgb_optical_frame base_link_calculated
@@ -139,11 +139,11 @@ Then create a node for static_transform_publisher in the static_frame.launch fil
 ```
 **Object Detection State of the Art (YOLOv4)**
 
-YOLOv4 will allow the computer to determine what objects are in the point cloud. Darknet Ros is a convenient way to get bounding boxes that are published on as a rostopic. Subscribing to the topic will allow easy access to continous bounding boxes even if the object is moved. To run YOLOv4 with ros it will be done by running in a terminal the command:
+YOLOv4 will allow the computer to determine what objects are in the point cloud. Darknet Ros is a convenient way to get bounding boxe pixel coordinates that are published as a rostopic. Subscribing to the topic will allow easy access to continous bounding boxes even if the object is moved. To run YOLOv4 with ros run in a terminal the command:
 
 ```roslaunch darknet_ros darknet_ros.launch```
 
-A new window will pop up with bounding boxes around the object YOLO has been trained on. A full guide on how to train you own custom weights can be found at [this](https://github.com/AlexeyAB/darknet) GitHub repository.
+A new window will pop up with bounding boxes around the objects YOLO has been trained on. A full guide on how to train you own custom weights can be found at [this](https://github.com/AlexeyAB/darknet) GitHub repository.
 
 ![image](https://user-images.githubusercontent.com/78880630/125510588-a582ca17-3d54-4ed1-a3a4-95642fde5960.png)
 
@@ -151,7 +151,7 @@ A new window will pop up with bounding boxes around the object YOLO has been tra
 
 **Cloud Clustering and Centroids**
 
-The .cpp file [pass_through.cpp](https://github.com/nickhward/Aubo-Pick-And-Place/blob/main/pass_through.cpp) filters out the point cloud. It used a voxel filter, a statistical filter, and a filter to get rid of the table top. Then inorder to only obtain the objects I used a function called Euclidean Cluster Extraction. This will cluster each object, and we can compute the 3D centroid, then convert the centroid into 2D. The 2D Centroid will be compared to the center point of the bounding box from the rostopic(/darknet_ros/bounding_boxes). The object that was selected will have the shortest euclidean between the bounding box and the 2D centroid. 
+The .cpp file [pass_through.cpp](https://github.com/nickhward/Aubo-Pick-And-Place/blob/main/pass_through.cpp) filters out the point cloud. It uses a voxel filter, a statistical filter, and a table top filter. Then inorder to only obtain the objects I used a function called Euclidean Cluster Extraction. This will cluster each object, and we can compute the 3D centroids of each object, then convert the centroids into 2D. The 2D Centroids will be compared to the center point of the bounding box from the rostopic(/darknet_ros/bounding_boxes). The object that is selected will have the shortest euclidean distance between the bounding box center point and the 2D centroid. 
 
 ![image](https://user-images.githubusercontent.com/78880630/125390026-03c78780-e357-11eb-9b8b-d30ff195a686.png)
 
@@ -168,7 +168,7 @@ This will allow you to enter the object name you want to cluster. To visualize t
 
 **GPD_ROS**
 
-We will be inserting the point cloud that is being published from pass_through.cpp.
+We will be inserting the point cloud that is being published from pass_through.cpp on the rostopic names /output_cloud_filtered.
 
 Run in a new terminal:
 
@@ -217,7 +217,7 @@ In order to get the ROS driver for the Asus Xtion Camera run the two commands:
    sudo apt-get install ros-kinetic-openni2-launch
 ```
 
-So that openni can see the Asus camera; unncomment the line `UsbInterface = 2` in the file Globaldefault.ini this file cannot be editted by clicking on the file, you will need to run with root privileges:
+So that openni can see the Asus camera; unncomment the line `UsbInterface = 2` in the file Globaldefault.ini. This file cannot be editted by simply clicking on the files icon, you will need to run with root privileges:
 
 ```
    sudo nano /etc/openi/Globaldefault.ini
@@ -232,7 +232,7 @@ To connect to the camera run command:
 
 **Aubo_Driver**
 
-Make sure to run: 
+Make sure to install the ros controllers and controller manager: 
 ```
    sudo apt-get install ros-kinetic-ros-controllers 
    sudo apt-get install ros-kinetic-controller-manager 
