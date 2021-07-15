@@ -106,7 +106,7 @@ Rviz will run with your robot model and the real robot will move just by draggin
 
 **Cordinate Frames and Transformations**
 
-ROS provides a very useful package to keep track of multple coordinate frames over time called [tf](http://wiki.ros.org/tf). To find the position of the robot base frame to the camera frame will be needed in order to have perform any grasping. To do this, Aruco Tags will be used. First you stick the aruco tag onto the end-effector of the robot. Have the tag visible to the camera and run in a terminal:
+ROS provides a very useful package to keep track of multple coordinate frames over time called [tf](http://wiki.ros.org/tf). The position of the robot base frame relative to the camera frame will be needed in order to perform any grasping. To do this, Aruco Tags will be used. First you stick the aruco tag onto the end-effector of the robot. Have the tag visible to the camera and run in a terminal:
 ```
    roslaunch aruco_ros single.launch 
 ```
@@ -132,7 +132,7 @@ To find the transformation between the camera frame and robot frame type in the 
    rosrun tf tf_echo camera_rgb_optical_frame base_link_calculated
 ```
 
-Then create a node for static_Transform_publisher in the static_frame.launch file using the values provided by the tf_echo command (translation[x, y, z] and Quaternion[x, y, z, w]): 
+Then create a node for static_transform_publisher in the static_frame.launch file using the values provided by the tf_echo command (translation[x, y, z] and Quaternion[x, y, z, w]): 
 
 ```
    <node pkg="tf" type="static_transform_publisher" name="cam_broadcaster" args="   x  y  z  x  y  z  w  camera_rgb_optical_frame  base_link_calculated   100" /> 
