@@ -35,21 +35,23 @@
 //using namespace message_filters;
 
 ros::Publisher pub;
-
+//min and max pixel points from the bounding boxes created by yolo. 
 int minX;
 int minY;
 int maxX;
 int maxY;
 int YoloCenterPointX;
 int YoloCenterPointY;
+//These end the callback functions so that they don't run infinite many times. 
 int endCallback2 = 0;
 int endCallback1 = 0;
 
-
+//callback function to get the bounding boxe coordinates
 void cloud_cb_2(const darknet_ros_msgs::BoundingBoxesConstPtr& msg)
 {
 
     if(endCallback2 == 0){
+        //gets user input to choose what object they want
         std::string my_choice = "";
         std::cout << "Choose what object you want to grasp: ";
         std::cin >> my_choice;
@@ -61,6 +63,8 @@ void cloud_cb_2(const darknet_ros_msgs::BoundingBoxesConstPtr& msg)
             if(msg->bounding_boxes[i].Class == my_choice)
             {
                 
+                
+                gets the minx and y and max x and y from the darknet_ros topic
                 minX = msg->bounding_boxes[i].xmin;
                 minY = msg->bounding_boxes[i].ymin;
                 maxX = msg->bounding_boxes[i].xmax;
@@ -71,7 +75,8 @@ void cloud_cb_2(const darknet_ros_msgs::BoundingBoxesConstPtr& msg)
                 std::cout << "bounding box minY" << minY << std::endl;
                 std::cout << "bounding box maxX" << maxX << std::endl;
                 std::cout << "bounding box maxY" << maxY << std::endl;
-
+                
+                //Finds the center point of x and y. 
                 YoloCenterPointX = (maxX + minX)/2;
                 YoloCenterPointY = (maxY + minY)/2;
                
@@ -85,6 +90,7 @@ void cloud_cb_2(const darknet_ros_msgs::BoundingBoxesConstPtr& msg)
 
 }
 
+//callback function to get the pointcloud2 from the rostopic of /camera_remote/depth_registered/points
 void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg){
 if(endCallback1 == 0){
     
@@ -191,8 +197,10 @@ for (std::vector<pcl::PointIndices>::const_iterator it = cluster_indices.begin (
     Eigen::Vector4f centroid3D;
     Eigen::Vector2i centroid2D;
     Eigen::Matrix3f camera_matrix;
+    //camera matrix that was created by the intrisic camera calibration step. This will be needed to translate from 3D centroid to 2D centroid
     camera_matrix <<  547.471175, 0.000000, 313.045026, 0.000000, 547.590335, 237.016225, 0.000000, 0.000000, 1.000000;
-
+    
+    //puts the clusters into cloud_cluster
     for (std::vector<int>::const_iterator pit = it->indices.begin (); pit != it->indices.end (); ++pit)
     {
         cloud_cluster->points.push_back (xyzCloudPtrRansacFiltered->points[*pit]); 
@@ -201,16 +209,17 @@ for (std::vector<pcl::PointIndices>::const_iterator it = cluster_indices.begin (
     cloud_cluster->height = 1; 
     cloud_cluster->is_dense = true; 
     //std::cout << "PointCloud representing the Cluster: " << cloud_cluster->points.size () << " data points." << std::endl; 
+    //a pcl funciton to comput the 3D centroid and save it as centroid3D
     pcl::compute3DCentroid(*xyzCloudPtrRansacFiltered, *it, centroid3D);
     
     Eigen::Vector2i pixel_position;
-
+    //next two lines convert centroid3D to pixel cordinates, and saves into variable pixel_position
     pixel_position(0) = (int)(centroid3D(0)*camera_matrix(0,0)/centroid3D(2) + camera_matrix(0,2));
     pixel_position(1) = (int)(centroid3D(1)*camera_matrix(1,1)/centroid3D(2) + camera_matrix(1,2));
     
     centroid2D = pixel_position;
 
-
+    //This is the calculation to find the Euclidean Distance between centroids and yolo bounding box center points
     distance_x = abs(YoloCenterPointX - centroid2D(0));
     std::cout << "YOlo centerx " << YoloCenterPointX << std::endl;
     std::cout << "controidx " << centroid2D(0) << std::endl;
@@ -219,7 +228,7 @@ for (std::vector<pcl::PointIndices>::const_iterator it = cluster_indices.begin (
     std::cout <<  "The distance in y axis: " << distance_y << std::endl;
     EuclideanDistance = sqrt(pow(distance_x, 2) + pow(distance_y, 2));
     std::cout <<  "The aggregated distance: " << EuclideanDistance << std::endl;
-    
+    //if object euclidean distance is less then threshhold the cluster will be published as a rostopic that we can now visualize in rviz. 
     if(EuclideanDistance < threshold){
         pcl::toPCLPointCloud2 (*cloud_cluster, outputPCL); 
         pcl_conversions::fromPCL(outputPCL, output);
@@ -238,6 +247,7 @@ for (std::vector<pcl::PointIndices>::const_iterator it = cluster_indices.begin (
 
 
 }
+ //end of call back function
 endCallback1++;
 
 }
@@ -256,7 +266,7 @@ ros::NodeHandle m_nh;
 ros::Subscriber sub = nh.subscribe ("/camera_remote/depth_registered/points", 1, cloud_cb);
 //subscribe to the bouding boxes from darknet_ros
 ros::Subscriber object_detection = m_nh.subscribe("/darknet_ros/bounding_boxes", 1, cloud_cb_2);
-   
+//publishes the filterd point cloud clusterd of the selected object and publish is as rostopic /output_filtered_cloud.
 pub = nh.advertise<sensor_msgs::PointCloud2> ("output_filtered_cloud", 10);
 
 ros::spin();
