@@ -242,7 +242,7 @@ One error when trying to launch the Aubo_Driver was:
 ```
    error while loading shared libraries: libmoveit_robot_trajectory.so.0.9.15: cannot openshared object file: No such file or directory
 ```
-The above error means that some of the moveit libraries are not seen by the program. To fix this run the following commands in the terminal(make sure to run each command in order):
+The above error means that some of the moveit libraries are not seen by the Aubo driver. To fix this run the following commands in the terminal(make sure to run each command in order):
 
 ```
    cd /opt/ros/kinetic/lib 
@@ -270,25 +270,24 @@ The above error means that some of the moveit libraries are not seen by the prog
 
 If you have a different robot from the Aubo Robot used in this repository I suggest looking at the moveit [setup assistant](http://docs.ros.org/en/kinetic/api/moveit_tutorials/html/doc/setup_assistant/setup_assistant_tutorial.html). Here you just enter your robots urdf and follow the instructions, and then you can run the exact same steps but with a different robot arm. 
 
-
 **Darknet_ros**
 
-In order to run git clone <url-to-darknet-ros> you have to create a ssh key for your GitHub account otherwise you will get an error saying you do not have permission to download the repository.
+In order to run git clone with the darknet_ros repository you have to create a ssh key for your GitHub account, otherwise you will get an error saying you do not have permission to download the repository.
    
-I had a little trouble figuring out how to set up the ssh key so here were my steps:
+I had a little trouble figuring out how to set up the ssh key so here were my steps. Run in a terminal: 
 
 ```
    ssh-keygen
 ```
-Press ENTER to save the key to the default location. Should be at /.ssh/id_rsa.pub. Enter a password or not up to you and then press ENTER again. This should set up the key in the default location. To view the key run:
+Press ENTER to save the key to the default location. Should be at /.ssh/id_rsa.pub. Enter a password or not... it's up to you and then press ENTER again. This should set up the key in the default location. To view the key run:
    
 ```
    cat .ssh/id_rsa.pub   
 ```
 
-Copy the generated key then go to your GitHub profile. Then follow the links: `Settings -> SSH and GPG keys`
+Copy the generated key from your terminal then go to your GitHub profile. Follow the links: `Settings -> SSH and GPG keys`. Click "New ssh key", paste the ssh key into the key field. Click "Add key". Now you should be able to clone the darknet ros repository with no problems. 
    
-If training a model on custom object is necessary follow [this](https://github.com/AlexeyAB/darknet) guide. I ran into an issue where opencv couldn't find my images. To fix this, I ran the program [preprocess.py](https://github.com/nickhward/Aubo-Pick-And-Place/blob/main/preprocess.py) with the command:
+If training a YOLO model on custom objects is necessary follow [this](https://github.com/AlexeyAB/darknet) guide. I ran into an issue where opencv couldn't find my images. To fix this, I ran the program [preprocess.py](https://github.com/nickhward/Aubo-Pick-And-Place/blob/main/preprocess.py) with the command:
    
 ```
    python preprocess.py   
@@ -323,7 +322,7 @@ You may run into an issue of opencv being to low as python 2.7 is most likely be
    
 **GPD and gpd_ros**
 
-GPD needs to be installed becuase it is needed for gpd_ros as a library. Gpd_ros is just a ros wrapper for GPD. 
+GPD needs to be installed becuase it is required for gpd_ros as a library. Gpd_ros is just a ros wrapper for GPD. 
 When installing GPD in order to successfully make the project, go to the CMakeList.txt file and comment out the line:
 
 ```
@@ -336,7 +335,7 @@ Uncomment the line:
    set(CMAKE_CXX_FLAGS "-fopenmp -fPIC -Wno-deprecated -Wenum-compare -Wno-ignored-attributes -std=c++17")
 ```
 
-When making GPD I suggest having pcl version 1.9 installed from source. If done correctly, the CMakeList.txt will find your version of PCL. In the GPD CMakeList.txt I changed the line `find_package(PCL 1.8 REQUIRED)` -> `find_package(PCL 1.9 REQUIRED)`. A common error I got was that the CMakeList couldn't find the `PCLConfig.cmake` file. This can be fixed by added the following line above the find_package line that was just changed: `set(PCL_DIR "/path/to/PCL/1.9.1/build/PCLConfig.cmake)`. You may have to do the same thing with the opencv installation as sometimes the CMakeList will not be able to find the OpenCvConfig.cmake file. This can be fixed by using the same function as used for pcl: `set(OpenCV_DIR "/path/to/opencv/build/OpenCVConfig.cmake")`.
+When making GPD I suggest having pcl version 1.9 installed from source. If done correctly, the CMakeList.txt will find your version of PCL. In the GPD CMakeList.txt I changed the line `find_package(PCL 1.8 REQUIRED)` -> `find_package(PCL 1.9 REQUIRED)`. A common error I got was that the CMakeList couldn't find the `PCLConfig.cmake` file. This can be fixed by added the following line above the find_package line that was changed to: `set(PCL_DIR "/path/to/PCL/1.9.1/build/PCLConfig.cmake)`. You may have to do the same thing with the opencv installation as sometimes the CMakeList will not be able to find the OpenCvConfig.cmake file. This can be fixed by using the same function as used for pcl: `set(OpenCV_DIR "/path/to/opencv/build/OpenCVConfig.cmake")`.
 
 GPD_ROS can be ran using the command `roslaunch gpd_ros ur5.launch`, it will not work right away unfortunately.
 
@@ -350,7 +349,7 @@ To:
    <param name="config_file" value="/path/to/gpd/cfg/ros_eigen_params.cfg" />
 ```
 
-The file ros_eigen_params.cfg is where most of the finctionality parameters are, such as setting the gripper dimensions, grasp workspaces, how many grasp samples are considered, etc. The only thing that needs to be changed in order for the launch file to work is the line:
+The file ros_eigen_params.cfg (path to .cfg file = ~/gpd/cfg/ros_eigen_params.cgf) is where most of the finctionality parameters are, such as setting the gripper dimensions, grasp workspaces, how many grasp samples are considered, etc. The only thing that needs to be changed in order for the launch file to work is the line:
 
 ```
    weights_file = /home/andreas/projects/gpd/lenet/15channels/params/
@@ -363,12 +362,22 @@ To:
 ```
 If GPD is running slow on producing grasps for you robot, I suggest lowering the parameter `num_samples = 500` to a number lower than 100 and change the parameter `workspace_graps = -1 1 -1 1 -1 1` to fit exactly the areas you need to grasp. 
 
+**Moveit Tutorials**
 
+Here are some helpful Moveit tutorials:
+- [Pick and Place Tutorial](http://docs.ros.org/en/kinetic/api/moveit_tutorials/html/doc/pick_place/pick_place_tutorial.html)
+- [URDF and SRDF Tutorials](http://docs.ros.org/en/kinetic/api/moveit_tutorials/html/doc/urdf_srdf/urdf_srdf_tutorial.html)
+- [Motion Planning API Tutorial](http://docs.ros.org/en/kinetic/api/moveit_tutorials/html/doc/motion_planning_api/motion_planning_api_tutorial.html)
+- [Motion Planning Pipeline Tutorial](http://docs.ros.org/en/kinetic/api/moveit_tutorials/html/doc/controller_configuration/controller_configuration_tutorial.html)
+- [Grasp Tutorial](https://ros-planning.github.io/moveit_tutorials/doc/moveit_grasps/moveit_grasps_tutorial.html)
+- [Deep Grasp Tutorial](https://ros-planning.github.io/moveit_tutorials/doc/moveit_deep_grasps/moveit_deep_grasps_tutorial.html)
 
+**ROS Tutorials**
 
-
-
-
+Here are some helpful ROS tutorials:
+- [Different Levels of ROS Tutorials](http://wiki.ros.org/ROS/Tutorials) (For the basics of ROS)
+- [Aubo and Gripper Integration Tutorial](http://wiki.ros.org/aubo_robot/Tutorials/How%20to%20combine%20AUBO%20robot%20and%20gripper)
+- [ROS Controllers Tutorials](http://wiki.ros.org/ros_control)
 
 
 
